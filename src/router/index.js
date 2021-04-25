@@ -16,6 +16,11 @@ const routes = [
     component: () => import("../views/Quran.vue"),
   },
   {
+    path: "/quran/:id",
+    name: "QuranDetail",
+    component: () => import("../views/QuranDetail.vue"),
+  },
+  {
     path: "/prayer",
     name: "Prayer",
     component: () => import("../views/PrayerTimes.vue"),

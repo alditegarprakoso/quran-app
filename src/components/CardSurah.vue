@@ -1,7 +1,7 @@
 <template>
   <div class="card h-100 shadow-sm">
-    <div class="card-body surah">
-      <div class="row text-center mb-2">
+    <div class="card-body">
+      <div class="row text-center">
         <div class="col-2" style="font-weight: bold">
           {{ surah.number }}
         </div>
@@ -10,6 +10,12 @@
         </div>
         <div class="col-4 arabic" style="font-weight: bold">
           {{ surah.name.short }}
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-2"></div>
+        <div class="col-8">
+          {{ surah.name.translation.id }}
         </div>
       </div>
       <div class="row">

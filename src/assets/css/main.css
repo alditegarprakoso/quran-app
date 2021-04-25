@@ -2,9 +2,24 @@
   font-family: "Quicksand", sans-serif;
 }
 
-.surah:hover {
+@font-face {
+  font-family: QuranFont;
+  src: url("../font/lpmq.woff");
+  font-display: swap;
+}
+
+.arabic {
+  font-family: QuranFont;
+}
+
+.surah-detail {
+  color: #222831;
+  cursor: pointer;
+}
+.surah-detail:hover {
   color: #00917c;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .title-item {

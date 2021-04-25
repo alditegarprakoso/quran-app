@@ -2,7 +2,9 @@
   <div class="quran mt-5">
     <div class="row row-cols-1 row-cols-md-3">
       <div class="col mb-4" v-for="surah in data_surah" :key="surah.number">
-        <CardSurah :surah="surah" />
+        <router-link :to="'/quran/' + surah.number" class="surah-detail">
+          <CardSurah :surah="surah" />
+        </router-link>
       </div>
     </div>
   </div>
