@@ -1,5 +1,5 @@
 <template>
-  <footer class="mt-5" style="background: #dddddddd; height: 70px">
+  <!-- <footer class="mt-5" style="background: #dddddddd; height: 70px">
     <div class="container">
       <div class="row text-center" style="padding: 10px">
         <div class="col-12 mt-3">
@@ -8,6 +8,9 @@
         </div>
       </div>
     </div>
+  </footer> -->
+  <footer id="footer">
+    <small>Made with &#10084;&#65039; by Aldi Tegar Prakoso</small>
   </footer>
 </template>
 

@@ -69,3 +69,18 @@ html {
   border-radius: 50%;
   font-weight: bold;
 }
+
+#footer {
+  padding-top: 2px;
+  padding-left: 17px;
+  align-items: center;
+  background-color: #0061a8;
+  color: white;
+  position: fixed;
+  width: 250px;
+  height: 30px;
+  left: 30px;
+  bottom: 20px;
+  border-radius: 20px;
+  font-weight: bold;
+}
