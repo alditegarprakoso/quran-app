@@ -7,6 +7,9 @@
         </router-link>
       </div>
     </div>
+    <div id="top">
+      <a href="#atas"><b-icon-arrow-up></b-icon-arrow-up></a>
+    </div>
   </div>
 </template>
 

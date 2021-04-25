@@ -2,10 +2,18 @@
   font-family: "Quicksand", sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @font-face {
   font-family: QuranFont;
   src: url("../font/lpmq.woff");
   font-display: swap;
+}
+
+.lh {
+  line-height: 200%;
 }
 
 .arabic {
@@ -17,14 +25,14 @@
   cursor: pointer;
 }
 .surah-detail:hover {
-  color: #00917c;
+  color: #0061a8;
   cursor: pointer;
   text-decoration: none;
 }
 
 .title-item {
   font-weight: 700;
-  color: #00917c !important;
+  color: #0061a8 !important;
 }
 .menu-item {
   font-weight: 500;
@@ -36,5 +44,28 @@
 
 .router-link-exact-active {
   font-weight: 700;
-  color: #00917c !important;
+  color: #0061a8 !important;
+}
+
+.btn-hero,
+.btn-hero:hover {
+  background: #0061a8 !important;
+  color: white;
+  font-weight: 500;
+  width: 130px;
+}
+
+#top a {
+  padding-top: 14px;
+  padding-left: 17px;
+  align-items: center;
+  background-color: #0061a8;
+  color: white;
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  right: 30px;
+  bottom: 20px;
+  border-radius: 50%;
+  font-weight: bold;
 }
