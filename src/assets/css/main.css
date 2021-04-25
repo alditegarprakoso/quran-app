@@ -1,5 +1,25 @@
-.menu-item {
-  font-weight: 700;
-  color: #222831 !important;
+* {
   font-family: "Quicksand", sans-serif;
+}
+
+.surah:hover {
+  color: #00917c;
+  cursor: pointer;
+}
+
+.title-item {
+  font-weight: 700;
+  color: #00917c !important;
+}
+.menu-item {
+  font-weight: 500;
+  color: #222831 !important;
+}
+.menu-item:hover {
+  text-decoration: none;
+}
+
+.router-link-exact-active {
+  font-weight: 700;
+  color: #00917c !important;
 }
