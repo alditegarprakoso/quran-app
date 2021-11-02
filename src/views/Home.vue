@@ -17,7 +17,7 @@
           >
         </div>
         <div class="col-md-7">
-          <img alt="Hero Image" src="../assets/img/hero.jpg" width="550" />
+          <img loading="lazy" draggable="false" alt="Hero Image" src="../assets/img/hero.jpg" width="550" />
         </div>
       </div>
     </div>
