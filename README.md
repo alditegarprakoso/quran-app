@@ -22,3 +22,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Lints and fixes files
+See [Demo](https://quran-app-arpra.netlify.app/).
