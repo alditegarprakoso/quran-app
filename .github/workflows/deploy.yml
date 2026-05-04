@@ -28,6 +28,6 @@ jobs:
 
             npm run build
 
-            rm -rf /var/www/frontend/quran-app/*
-  
-            cp -r dist/* /var/www/frontend/quran-app
+            sudo rm -rf /var/www/frontend/quran-app/*
+
+            sudo cp -r dist/* /var/www/frontend/quran-app
