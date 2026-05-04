@@ -24,6 +24,8 @@ jobs:
 
             git pull origin main
 
+            nvm use 20
+
             npm install
 
             npm run build
