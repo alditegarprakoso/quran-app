@@ -17,7 +17,7 @@
           >
         </div>
         <div class="col-md-7">
-          <img loading="lazy" draggable="false" alt="Hero Image" src="../assets/img/hero.jpg" width="550" />
+          <img loading="lazy" draggable="false" alt="Hero Image" src="../assets/img/hero.webp" width="550" />
         </div>
       </div>
     </div>
@@ -27,7 +27,7 @@
     <div class="d-sm-block d-md-none" style="margin-top: 20px">
       <div class="row align-items-center text-center">
         <div class="col-md-7">
-          <img alt="Hero Image" src="../assets/img/hero.jpg" width="400" />
+          <img alt="Hero Image" src="../assets/img/hero.webp" width="400" />
         </div>
         <div class="col-md-5">
           <h3 class="mb-4" style="font-weight: 700">

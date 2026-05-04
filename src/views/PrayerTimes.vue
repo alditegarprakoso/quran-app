@@ -24,7 +24,7 @@
             >
               <option disabled selected value="">Pilih Daerah</option>
               <option v-for="kota in list_kota" :key="kota.id" :value="kota.id">
-                {{ kota.nama }}
+                {{ kota.lokasi }}
               </option>
             </select>
           </div>
@@ -40,7 +40,7 @@
                 :key="kota.id"
                 :value="kota.id"
               >
-                {{ kota.nama }}
+                {{ kota.lokasi }}
               </option>
             </select>
           </div>
@@ -48,45 +48,45 @@
       </div>
     </div>
 
-    <div class="row text-center mb-3" v-if="kota">
+    <div class="row text-center mb-3" v-if="jadwal_sholat">
       <div class="col-12 mb-3">
         <h5>Jadwal Sholat Daerah</h5>
       </div>
       <div class="col-12">
-        <h4>{{ kota }}</h4>
+        <h4>{{ jadwal_sholat.lokasi }}</h4>
       </div>
       <div class="col-12">
-        <h5>{{ jadwal_sholat.jadwal.data.tanggal }}</h5>
+        <h5>{{ jadwal_sholat.jadwal.tanggal }}</h5>
       </div>
     </div>
 
-    <div class="row text-center justify-content-center mb-5" v-if="kota">
+    <div class="row text-center justify-content-center mb-5" v-if="jadwal_sholat">
       <div class="col-md-2">
         <table class="table table-striped">
           <tbody>
             <tr>
               <td>Imsak</td>
-              <td>{{ jadwal_sholat.jadwal.data.imsak }}</td>
+              <td>{{ jadwal_sholat.jadwal.imsak }}</td>
             </tr>
             <tr>
               <td>Subuh</td>
-              <td>{{ jadwal_sholat.jadwal.data.subuh }}</td>
+              <td>{{ jadwal_sholat.jadwal.subuh }}</td>
             </tr>
             <tr>
               <td>Dzuhur</td>
-              <td>{{ jadwal_sholat.jadwal.data.dzuhur }}</td>
+              <td>{{ jadwal_sholat.jadwal.dzuhur }}</td>
             </tr>
             <tr>
               <td>Ashar</td>
-              <td>{{ jadwal_sholat.jadwal.data.ashar }}</td>
+              <td>{{ jadwal_sholat.jadwal.ashar }}</td>
             </tr>
             <tr>
               <td>Maghrib</td>
-              <td>{{ jadwal_sholat.jadwal.data.maghrib }}</td>
+              <td>{{ jadwal_sholat.jadwal.maghrib }}</td>
             </tr>
             <tr>
               <td>Isya</td>
-              <td>{{ jadwal_sholat.jadwal.data.isya }}</td>
+              <td>{{ jadwal_sholat.jadwal.isya }}</td>
             </tr>
           </tbody>
         </table>
@@ -102,12 +102,11 @@ export default {
   name: "PrayerTimes",
   data() {
     return {
-      list_kota: null,
+      list_kota: [],
       pilih_kota: null,
       jadwal_sholat: null,
-      selected: null,
-      kota: null,
-      search: null,
+      selected: "",
+      search: "",
     };
   },
   methods: {
@@ -115,48 +114,38 @@ export default {
       this.list_kota = data;
     },
     getJadwal() {
-      let d = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
+      if (!this.selected) return;
+      
+      let date = new Date();
+      let year = date.getFullYear();
+      let month = String(date.getMonth() + 1).padStart(2, '0');
+      let day = String(date.getDate()).padStart(2, '0');
+      
       axios
         .get(
-          `https://api.banghasan.com/sholat/format/json/jadwal/kota/${this.selected}/tanggal/${d}`
+          `https://api.myquran.com/v2/sholat/jadwal/${this.selected}/${year}/${month}/${day}`
         )
         .then((response) => {
-          this.jadwal_sholat = response.data;
-          axios
-            .get(
-              "https://api.banghasan.com/sholat/format/json/kota/kode/" +
-                this.jadwal_sholat.query.kota
-            )
-            .then((response) => {
-              response.data.kota.forEach((element) => {
-                this.kota = element.nama;
-              });
-            })
-            .catch((error) => console.log("Gagal : ", error));
+          this.jadwal_sholat = response.data.data;
         })
         .catch((error) => console.log("Gagal : ", error));
     },
     filterKota(nama_kota) {
+      if (!nama_kota) {
+        this.pilih_kota = null;
+        return;
+      }
       const filterKota = this.list_kota.filter((item) =>
-        item.nama.includes(nama_kota.toUpperCase())
+        item.lokasi.includes(nama_kota.toUpperCase())
       );
 
-      try {
-        if (!filterKota) {
-          return this.list_kota;
-        } else {
-          this.pilih_kota = filterKota;
-          return this.pilih_kota;
-        }
-      } catch (error) {
-        console.log(error);
-      }
+      this.pilih_kota = filterKota;
     },
   },
   mounted() {
     axios
-      .get("https://api.banghasan.com/sholat/format/json/kota")
-      .then((response) => this.getKota(response.data.kota))
+      .get("https://api.myquran.com/v2/sholat/kota/semua")
+      .then((response) => this.getKota(response.data.data))
       .catch((error) => console.log("Gagal : ", error));
   },
 };

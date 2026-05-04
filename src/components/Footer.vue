@@ -10,7 +10,7 @@
     </div>
   </footer> -->
   <footer id="footer">
-    <small>Made with &#10084;&#65039; by Aldi Tegar Prakoso</small>
+    <small>&copy; 2021. Made with &#10084;&#65039; by Aldi Tegar Prakoso</small>
   </footer>
 </template>
 

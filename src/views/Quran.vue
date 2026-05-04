@@ -15,8 +15,8 @@
     </div>
     <div v-if="data_search">
       <div class="row row-cols-1 row-cols-md-3">
-        <div class="col mb-4" v-for="surah in data_search" :key="surah.number">
-          <router-link :to="'/quran/' + surah.number" class="surah-detail">
+        <div class="col mb-4" v-for="surah in data_search" :key="surah.nomor">
+          <router-link :to="'/quran/' + surah.nomor" class="surah-detail">
             <CardSurah :surah="surah" />
           </router-link>
         </div>
@@ -24,8 +24,8 @@
     </div>
     <div v-else>
       <div class="row row-cols-1 row-cols-md-3">
-        <div class="col mb-4" v-for="surah in data_surah" :key="surah.number">
-          <router-link :to="'/quran/' + surah.number" class="surah-detail">
+        <div class="col mb-4" v-for="surah in data_surah" :key="surah.nomor">
+          <router-link :to="'/quran/' + surah.nomor" class="surah-detail">
             <CardSurah :surah="surah" />
           </router-link>
         </div>
@@ -58,25 +58,19 @@ export default {
       this.data_surah = data;
     },
     getSuratNumberByName(surahName) {
-      const surahFilter = this.data_surah.filter((item) =>
-        item.name.transliteration.id.includes(surahName)
-      );
-
-      try {
-        if (!surahFilter) {
-          return this.data_surah;
-        } else {
-          this.data_search = surahFilter;
-          return this.data_search;
-        }
-      } catch (error) {
-        console.log(error);
+      if (!surahName) {
+        this.data_search = null;
+        return;
       }
+      const surahFilter = this.data_surah.filter((item) =>
+        item.namaLatin.toLowerCase().includes(surahName.toLowerCase())
+      );
+      this.data_search = surahFilter;
     },
   },
   mounted() {
     axios
-      .get("https://api.quran.sutanlab.id/surah")
+      .get("https://equran.id/api/v2/surat")
       .then((response) => this.getSurah(response.data.data))
       .catch((error) => console.log("Gagal : ", error));
   },

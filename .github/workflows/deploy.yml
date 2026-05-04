@@ -1,0 +1,33 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /home/ubuntu/apps/frontend/quran-app
+
+            git pull origin main
+
+            npm install
+
+            npm run build
+
+            rm -rf /var/www/frontend/quran-app/*
+  
+            cp -r dist/* /var/www/frontend/quran-app
