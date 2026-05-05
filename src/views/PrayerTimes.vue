@@ -1,49 +1,19 @@
 <template>
   <div class="prayer-times mt-5">
-    <div class="row">
-      <div class="col">
-        <div class="form-group">
-          <input
-            v-model="search"
-            type="text"
-            class="form-control"
-            placeholder="Cari Kota..."
-            @keyup="filterKota(search)"
-          />
-        </div>
-      </div>
-    </div>
     <div class="row mb-4">
       <div class="col">
         <div class="form-group">
-          <div v-if="!pilih_kota">
-            <select
-              class="form-control"
-              v-model="selected"
-              @change="getJadwal()"
-            >
-              <option disabled selected value="">Pilih Daerah</option>
-              <option v-for="kota in list_kota" :key="kota.id" :value="kota.id">
-                {{ kota.lokasi }}
-              </option>
-            </select>
-          </div>
-          <div v-else>
-            <select
-              class="form-control"
-              v-model="selected"
-              @change="getJadwal()"
-            >
-              <option disabled selected value="">Pilih Daerah</option>
-              <option
-                v-for="kota in pilih_kota"
-                :key="kota.id"
-                :value="kota.id"
-              >
-                {{ kota.lokasi }}
-              </option>
-            </select>
-          </div>
+          <input
+            list="daerah-list"
+            v-model="search"
+            type="text"
+            class="form-control"
+            placeholder="Ketik atau pilih daerah..."
+            @change="handleSelection"
+          />
+          <datalist id="daerah-list">
+            <option v-for="kota in list_kota" :key="kota.id" :value="kota.lokasi"></option>
+          </datalist>
         </div>
       </div>
     </div>
@@ -103,9 +73,7 @@ export default {
   data() {
     return {
       list_kota: [],
-      pilih_kota: null,
       jadwal_sholat: null,
-      selected: "",
       search: "",
     };
   },
@@ -113,9 +81,17 @@ export default {
     getKota(data) {
       this.list_kota = data;
     },
-    getJadwal() {
-      if (!this.selected) return;
-      
+    handleSelection() {
+      const selectedKota = this.list_kota.find(
+        (kota) => kota.lokasi.toUpperCase() === this.search.toUpperCase()
+      );
+      if (selectedKota) {
+        this.getJadwal(selectedKota.id);
+      } else {
+        this.jadwal_sholat = null;
+      }
+    },
+    getJadwal(id) {
       let date = new Date();
       let year = date.getFullYear();
       let month = String(date.getMonth() + 1).padStart(2, '0');
@@ -123,23 +99,12 @@ export default {
       
       axios
         .get(
-          `https://api.myquran.com/v2/sholat/jadwal/${this.selected}/${year}/${month}/${day}`
+          `https://api.myquran.com/v2/sholat/jadwal/${id}/${year}/${month}/${day}`
         )
         .then((response) => {
           this.jadwal_sholat = response.data.data;
         })
         .catch((error) => console.log("Gagal : ", error));
-    },
-    filterKota(nama_kota) {
-      if (!nama_kota) {
-        this.pilih_kota = null;
-        return;
-      }
-      const filterKota = this.list_kota.filter((item) =>
-        item.lokasi.includes(nama_kota.toUpperCase())
-      );
-
-      this.pilih_kota = filterKota;
     },
   },
   mounted() {
